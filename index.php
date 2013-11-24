@@ -18,37 +18,44 @@ function __autoload ($class_name) {
 }
 
 /**
- * Let's create some random army
- * we can add multiple armies
- */
-$usa = new Army_Army('U.S.A');
-$usa->createArmy(100);
-
-$russia = new Army_Army('Russia');
-$russia->createArmy(120);
-
-//$china = new Army_Army('China');
-//$china->createArmy(140);
-
-/**
  * War is our main class for gameplay
  */
 $war = new War();
 
 /**
+ * Let's create some random army
+ * we can add multiple armies
+ */
+$foundArmies = 0;
+foreach($_GET as $key => $armyCount){
+    if(strpos($key, 'army' ) !==false){
+      $foundArmies++;
+
+      // we have some army, let's create the units
+      $armyVariable = $key;
+      $armyvariable = new Army_Army($key);
+      $armyvariable->createArmy($armyCount);
+
+      /**
+       * add armies to the war
+       */
+      $war->setArmy($armyvariable);
+    }
+
+
+}
+
+if($foundArmies < 2) {
+  die('We need at least two armies, you can send armies with get method like: ?army1=50&army2=55');
+}
+/**
  * we can display log from the battle
  * set showLogsInHtml to true in order to get nice logs in browser
  * and set it to false if running the script from console
  */
-//$war->showLogs(true);
-//$war->showLogsInHtml(true);
 
-/**
- * add armies to the war
- */
-$war->setArmy($usa);
-$war->setArmy($russia);
-//$war->setArmy($china);
+$war->showLogs(true);
+$war->showLogsInHtml(true);
 
 /**
  * Let's start the war

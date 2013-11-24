@@ -80,11 +80,11 @@ class War {
     $attackerArmy = $this->_armies[$attackArmyKey];
 
     //For the modifiers example we will fix them to 5 and 2 turn for activation
-    if ($this->_turn == 2) {
+    if ($this->_turn == 1) {
       Modifiers_ModifierManager::applyModifierToArmy($attackerArmy, new Modifiers_Motivation());
     }
 
-    if ($this->_turn == 3) {
+    if ($this->_turn == 1) {
       Modifiers_ModifierManager::applyModifierToArmy($attackerArmy, new Modifiers_Plague());
     }
 
